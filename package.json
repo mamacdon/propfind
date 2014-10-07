@@ -1,0 +1,11 @@
+{
+  "name": "propfind",
+  "version": "0.0.0",
+  "description": "argh",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "MIT"
+}

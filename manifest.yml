@@ -1,0 +1,6 @@
+---
+applications:
+- name: propfind
+  memory: 512M
+  host: propfind
+
