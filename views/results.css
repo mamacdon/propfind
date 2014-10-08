@@ -1,0 +1,29 @@
+.icon.pass:after {
+	content: "\2714";
+}
+.icon.fail:after {
+	content: "\2718";
+}
+
+.icon {
+	margin: 0 0 0 5px;
+}
+
+.icon.pass {
+	color: green;
+}
+
+.icon.fail {
+	color: red;
+}
+
+.error {
+	color: red;
+	margin: 0 0 0 20px;
+}
+
+.result {
+	margin-bottom: 0.5em;
+}
+
+

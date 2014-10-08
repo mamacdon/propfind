@@ -1,19 +1,34 @@
+// Renders a single test
+mixin singleTest(result, methodName)
+  li.result
+    | #{methodName}
+    span(class=["icon", result.pass ? "pass" : "fail"])
+    code
+      if result.error
+        div.error= result.error
+//        if result.body
+//          pre.body= result.body
+//
+//      if result.response
+//        div.status= result.response.statusCode 
+//        each value, header in result.response.headers
+//          div #{header}: #{value}
+
+// Output document
 doctype html
 html(lang="en")
   head
     meta(charset="UTF-8")
     title Exotic Request Methods
+    style
+      include results.css
   body
     h1 Exotic Request Methods
     p Testing against: 
-      b #{url}
+      b
+        tt #{url}
     each proto, protoName in protocols
       h2 #{protoName}
       ul
-        each response, methodName in proto
-          if response.pass
-            li #{methodName} &#x2714;
-          else
-            li #{methodName} &#x2718; 
-              br
-              code #{response.msg}
+        each result, methodName in proto
+          +singleTest(result, methodName)
