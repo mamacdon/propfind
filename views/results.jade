@@ -1,18 +1,25 @@
+- function titleCase(s) {
+- 	return s.replace(/\b([a-z])/g, function(c) {
+- 		return c.toUpperCase();
+- 	});
+- }
+
 // Renders a single test
 mixin singleTest(result, methodName)
+  - var stateClass = result.pass ? "pass" : "fail";
   li.result
     | #{methodName}
-    span(class=["icon", result.pass ? "pass" : "fail"])
+    span(class=["icon", stateClass])
     code
       if result.error
         div.error= result.error
-//        if result.body
-//          pre.body= result.body
-//
-//      if result.response
-//        div.status= result.response.statusCode 
-//        each value, header in result.response.headers
-//          div #{header}: #{value}
+      if result.response
+        div(class=["response", stateClass])
+          div.status= result.response.statusCode 
+          each value, header in result.response.headers
+            div= titleCase(header) + ": " + value
+          if result.body
+            pre.body= result.body
 
 // Output document
 doctype html

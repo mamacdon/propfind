@@ -16,7 +16,8 @@ try {
 	isLocal = false;
 	internalPort = 8228;
 	//uri = "localhost";
-	uri = "propfind2.cfapps.io";
+	//uri = "propfind2.mybluemix.net";
+	//uri = "propfind.cfapps.io";
 }
 
 var results = {
@@ -60,14 +61,13 @@ function test() {
 				res.on("data", function(chunk) {
 					body += chunk;
 				}).on("end", function() {
-					var ok = true, expectedBody = (method + " /"), error;
+					var ok = true, expectedBody = (method + " /");
 					if (body !== expectedBody) {
-						// Got a response but it was not what we sent
+						// Got a response but it was not what we expected
 						ok = false;
-						error = new Error(util.format("Expected %s, got %s", expectedBody, body));
 					}
 					console.log(util.format("%s %s: %s"), protocol, method, ok);
-					putResult(protocol, method, ok, res, body, error);
+					putResult(protocol, method, ok, res, body);
 				});
 			});
 			req.on("error", function(err) {

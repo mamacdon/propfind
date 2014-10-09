@@ -17,8 +17,10 @@
 	color: red;
 }
 
-.error {
+.error, .response.fail {
 	color: red;
+}
+.error, .response {
 	margin: 0 0 0 20px;
 }
 
