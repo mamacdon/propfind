@@ -6,15 +6,16 @@
 
 // Renders a single test
 mixin singleTest(result, methodName)
-  - var stateClass = result.pass ? "pass" : "fail";
+  - var passFailClass = result.pass ? "pass" : "fail";
+  - var maybeHideClass = result.pass ? "hide" : "";
   li.result
     | #{methodName}
-    span(class=["icon", stateClass])
-    code
+    span(class=["icon", passFailClass])
+    code(class=maybeHideClass)
       if result.error
         div.error= result.error
       if result.response
-        div(class=["response", stateClass])
+        div(class=["response", passFailClass])
           div.status= result.response.statusCode 
           each value, header in result.response.headers
             div= titleCase(header) + ": " + value
@@ -39,3 +40,19 @@ html(lang="en")
       ul
         each result, methodName in proto
           +singleTest(result, methodName)
+    script.
+        document.addEventListener("click", function(e) {
+          var target = e.target;
+          var resultNode = getAncestorWith(target, function(n) {
+          	return n.classList && n.classList.contains("result");
+          });
+          if (resultNode) {
+              // Result was clicked: show or hide the <code> element under it
+              resultNode.querySelector("code").classList.toggle("hide");
+          }
+        })
+
+        function getAncestorWith(node, predicate) {
+        	for (; node && !predicate(node); node = node.parentNode);
+        	return node;
+        }

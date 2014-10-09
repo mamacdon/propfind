@@ -3,6 +3,7 @@
 var http = require("http"),
     https = require("https"),
     jade = require("jade"),
+    url = require("url"),
     util = require("util");
 
 var methods = ["COPY", "LOCK", "MKCOL", "MOVE", "PATCH", "PROPFIND", "PROPPATCH", "SEARCH", "UNLOCK"];
@@ -16,7 +17,7 @@ try {
 	isLocal = false;
 	internalPort = 8228;
 	//uri = "localhost";
-	//uri = "propfind2.mybluemix.net";
+	uri = "propfind.mybluemix.net";
 	//uri = "propfind.cfapps.io";
 }
 
@@ -87,7 +88,7 @@ function printResults() {
 }
 
 http.createServer(function(req, res) {
-	if (req.method === "GET" && req.query === "refresh") {
+	if (req.method === "GET" && url.parse(req.url).query === "refresh") {
 		res.end("Running tests again. Please wait a sec and refresh.");
 	} else if (req.method === "GET") {
 		res.writeHead(200, {"Content-Type": "text/html, charset=UTF-8"});
