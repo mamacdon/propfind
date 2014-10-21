@@ -14,10 +14,10 @@ try {
 	    isLocal = false;
 } catch (e) {
 	// Running locally - remove this
-	isLocal = false;
+	isLocal = true;
 	internalPort = 8228;
-	//uri = "localhost";
-	uri = "propfind.mybluemix.net";
+	uri = "localhost";
+	//uri = "propfind.mybluemix.net";
 	//uri = "propfind.cfapps.io";
 }
 
